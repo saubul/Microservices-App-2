@@ -1,5 +1,7 @@
 package ru.saubul.customer.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -31,6 +33,11 @@ public class CustomerServiceImpl implements CustomerService{
 													  .email(customerDTO.getEmail())
 													  .build();
 		return customerRepository.save(customerEntity);
+	}
+
+	@Override
+	public List<CustomerEntity> findAll() {
+		return customerRepository.findAll();
 	}
 	
 }

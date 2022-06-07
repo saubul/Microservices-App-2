@@ -1,5 +1,6 @@
 package ru.saubul.customer.controller;
 
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ru.saubul.customer.dto.CustomerDTO;
-import ru.saubul.customer.entity.CustomerEntity;
 import ru.saubul.customer.model.CustomerModel;
 import ru.saubul.customer.model.CustomerModelAssembler;
 import ru.saubul.customer.service.CustomerService;
@@ -34,8 +34,13 @@ public class CustomerController {
 	}
 
 	@GetMapping("/{id}")
-	public HttpEntity<CustomerModel> getUser(@PathVariable("id") Long id) {
-		return new ResponseEntity<>(customerModelAssembler.toModel(customerService.findById(id)) , HttpStatus.OK);
+	public HttpEntity<CustomerModel> getCustomer(@PathVariable("id") Long id) {
+		return new ResponseEntity<>(customerModelAssembler.toModel(customerService.findById(id)) , HttpStatus.FOUND);
+	}
+
+	@GetMapping
+	public HttpEntity<CollectionModel<CustomerModel>> getCustomers() {
+		return new ResponseEntity<>(customerModelAssembler.toCollectionModel(customerService.findAll()), HttpStatus.FOUND);
 	}
 	
 }
