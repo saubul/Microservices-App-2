@@ -2,6 +2,7 @@ package ru.saubul.customer.service.impl;
 
 import java.util.List;
 
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -10,6 +11,7 @@ import ru.saubul.customer.controller.FraudCheckResponse;
 import ru.saubul.customer.dto.CustomerDTO;
 import ru.saubul.customer.entity.CustomerEntity;
 import ru.saubul.customer.exception.CustomerNotFoundException;
+import ru.saubul.customer.model.CustomerModel;
 import ru.saubul.customer.repository.CustomerRepository;
 import ru.saubul.customer.service.CustomerService;
 
@@ -19,6 +21,7 @@ public class CustomerServiceImpl implements CustomerService{
 
 	private final CustomerRepository customerRepository;
 	private final RestTemplate restTemplate;
+	private final KafkaTemplate<String, CustomerEntity> kafkaTemplate;
 	
 	@Override
 	public CustomerEntity findById(Long id) {
@@ -42,7 +45,7 @@ public class CustomerServiceImpl implements CustomerService{
 		if(fraudCheckResponse.isFraudster()) {
 			throw new IllegalStateException("Fraudster");
 		}
-		
+		kafkaTemplate.send("microservicesTopic", customerEntity);
 		return customerEntity;
 	}
 

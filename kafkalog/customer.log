@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2022-06-14T21:26:48.298126400Z</date>
+  <millis>1655242008298</millis>
+  <nanos>126400</nanos>
+  <sequence>5</sequence>
+  <logger>logger</logger>
+  <level>INFO</level>
+  <class>ru.saubul.kafkalog.listener.MicroservicesTopicListener</class>
+  <method>microservicesTopicListen</method>
+  <thread>26</thread>
+  <message>Time: 1655242008254, value: {"id":302,"name":"Diana2","email":"diana5@yandex.ru"}</message>
+</record>

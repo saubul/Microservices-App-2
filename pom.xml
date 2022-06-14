@@ -61,5 +61,6 @@
   	<module>customer</module>
   	<module>fraud</module>
   	<module>eureka-server</module>
+  	<module>kafkalog</module>
   </modules>
 </project>
